@@ -6,3 +6,5 @@
 /api/.phpunit.result.cache
 
 /api/.php-cs-fixer.cache
+
+.idea
