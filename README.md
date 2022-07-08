@@ -2,14 +2,17 @@
 
 API Platform skeleton:
 
-* **API REST or a GraphQL API** with pagination, data validation, access control, relation embedding,
+* **API REST** with pagination, swagger documentation, data validation, access control, relation embedding,
   filters and error handling...
 
 ## Install
 
-Installation on command like:
+Installation on command line:
 1. make prep (It will take some time)
-2. make up
+
+## Usage
+1. make up
+2. Open on a browser the documentation https://localhost/docs
 
 ## Credits
 
