@@ -3,15 +3,15 @@ help:
 .PHONY: help
 
 
-prep:
+build:
 	@make down
 	@docker-compose build --pull --no-cache
 	@make down
 # nmp
-.PHONY: prep
+.PHONY: build
 
 logs:
-	@$(DCCOMMAND) logs -f
+	@docker-compose logs -f
 .PHONY: logs
 
 watch:
@@ -19,7 +19,7 @@ watch:
 .PHONY: watch
 
 up:
-	@docker-compose up -d --remove-orphans $(only)
+	@docker-compose up
 .PHONY: up
 
 down:
