@@ -5,36 +5,36 @@ declare(strict_types=1);
 namespace App\Packages\Common\Domain\Values;
 
 use App\Packages\Common\Domain\Exception\InvalidCommonIdException;
-use App\Packages\Common\Domain\Exception\InvalidCommonIntegerPositiveOrZeroException;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Uuid;
 
 /**
  * @ORM\Embeddable()
  */
-abstract class CommonId extends CommonIntegerPositiveOrZero
+abstract class CommonId
 {
     /**
-     * @ORM\Column(name="id", type="integer", nullable=false, options={"unsigned"=true})
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\Column(name="id", type="uuid", nullable=false)
      */
-    protected int $value;
+    protected string $value;
 
     /**
-     * @param int $value
      * @throws InvalidCommonIdException
      */
-    public function __construct(int $value)
-    {
-        try {
-            parent::__construct($value);
-        } catch (InvalidCommonIntegerPositiveOrZeroException $e) {
-            throw new InvalidCommonIdException($value, $e->getCode(), $e);
+    public function __construct(string $value) {
+        if (!$this->validateUuid($value)) {
+            throw new InvalidCommonIdException($value);
         }
+        $this->value = $value;
     }
 
-    public function value(): int
+    public function value(): string
     {
         return $this->value;
+    }
+
+    private function validateUuid(string $value): bool {
+        return preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/', $value) !== 1;
     }
 }

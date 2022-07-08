@@ -16,8 +16,8 @@ final class InvalidCommonIdException extends DomainException
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(int $id, int $code = 0, Throwable $previous = null)
+    public function __construct($id, int $code = 0, Throwable $previous = null)
     {
-        parent::__construct("Invalid ID: {$id}", $code, $previous);
+        parent::__construct("Invalid Uuid: {$id}", $code, $previous);
     }
 }

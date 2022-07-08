@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Greetings;
 
+use App\Common\Responses\InvalidUuidSetAsParameterResponse;
 use App\Common\Responses\NotFoundJsonResponse;
+use App\Packages\Common\Application\Exception\InvalidResourceException;
 use App\Packages\Common\Application\Exception\ResourceNotFoundException;
 use App\Packages\Greetings\Application\DTO\GreetingDTO;
 use App\Packages\Greetings\Application\GetGreetingService;
@@ -18,13 +20,14 @@ class GetGreetingByIdController extends AbstractController
     {
     }
 
-    public function __invoke(int $id, Request $request): JsonResponse|GreetingDTO
+    public function __invoke(string $id, Request $request): JsonResponse|GreetingDTO
     {
         try {
             return ($this->service)($id);
         } catch (ResourceNotFoundException) {
             return (new NotFoundJsonResponse())();
+        } catch (InvalidResourceException $e) {
+            return (new InvalidUuidSetAsParameterResponse)();
         }
     }
-
 }

@@ -17,12 +17,12 @@ final class GreetingId extends CommonId
     /**
      * @throws InvalidGreetingIdException
      */
-    public function __construct(int $value)
+    public function __construct(string $value)
     {
         try {
             parent::__construct($value);
         } catch (InvalidCommonIdException $e) {
-            throw new InvalidGreetingIdException($value, $e->getCode(), $e);
+            throw new InvalidGreetingIdException($e->getMessage(), $e->getCode(), $e);
         }
     }
 }

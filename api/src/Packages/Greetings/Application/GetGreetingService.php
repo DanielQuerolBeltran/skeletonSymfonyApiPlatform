@@ -23,7 +23,7 @@ class GetGreetingService
      * @throws ResourceNotFoundException
      * @throws InvalidResourceException
      */
-    public function __invoke(int $id): GreetingDTO
+    public function __invoke(string $id): GreetingDTO
     {
         try {
             return GreetingDTO::assemble($this->repository->get(new GreetingId($id)));

@@ -13,7 +13,7 @@ final class GreetingDTO
 {
     public function __construct(
         #[Groups(['greeting:readItem'])]
-        public int $id,
+        public string $id,
         #[Groups(['greeting:readItem'])]
         public string $name
     )
