@@ -26,7 +26,7 @@ class GetGreetingByIdController extends AbstractController
             return ($this->service)($id);
         } catch (ResourceNotFoundException) {
             return (new NotFoundJsonResponse())();
-        } catch (InvalidResourceException $e) {
+        } catch (InvalidResourceException) {
             return (new InvalidUuidSetAsParameterResponse)();
         }
     }
