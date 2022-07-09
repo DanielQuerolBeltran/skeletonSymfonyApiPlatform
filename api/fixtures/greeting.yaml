@@ -1,0 +1,15 @@
+App\Packages\Greetings\Domain\Values\GreetingId:
+    greeting_id_1:
+        __construct:
+            - '850b71ab-0dc2-4ad8-9993-8a290bae4463'
+                
+App\Packages\Greetings\Domain\Values\GreetingName:
+    greeting_name_1:
+        __construct:
+            - 'hola'
+
+App\Packages\Greetings\Domain\Greeting:
+    greeting_1:
+        __construct:
+            - '@greeting_id_1'
+            - '@greeting_name_1'

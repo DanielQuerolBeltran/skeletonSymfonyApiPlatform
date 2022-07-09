@@ -19,9 +19,19 @@ watch:
 .PHONY: watch
 
 up:
+	@docker-compose down --remove-orphans
 	@docker-compose up
 .PHONY: up
 
 down:
 	@docker-compose down --remove-orphans
 .PHONY: down
+
+install:
+	@docker-compose run php composer install
+.PHONY: install
+
+test:
+	@docker-compose exec --env APP_ENV=test php bin/console doctrine:schema:update --force
+	@docker-compose exec --env APP_ENV=test php ./bin/phpunit
+.PHONY: test

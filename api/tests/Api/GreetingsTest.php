@@ -1,23 +1,34 @@
 <?php
-
+/** @noinspection PhpUnhandledExceptionInspection */
 namespace App\Tests\Api;
 
-use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
-use App\Entity\Greeting;
+use App\Tests\Tools\AbstractAPITestCase;
 
-class GreetingsTest extends ApiTestCase
+class GreetingsTest extends AbstractAPITestCase
 {
+    public const API_OPTIONS_DEFAULTS = [
+        'base_uri' => 'http://localhost',
+    ];
+
     public function testCreateGreeting()
     {
-        $response = static::createClient()->request('POST', '/greetings', ['json' => [
-            'name' => 'Kévin',
-        ]]);
+        $expectedId = '850b71ab-0dc2-4ad8-9993-8a290bae4463';
+        $this->loadFixtures(['fixtures/greeting.yaml']);
 
-        $this->assertResponseStatusCodeSame(201);
+        $response = $this->getClient()->request(
+            'GET',
+            '/greetings/'.$expectedId,
+            ['headers' => [
+                'Accept' => 'application/json'
+            ]],
+        );
+
+        $this->assertResponseIsSuccessful();
+        $this->assertResponseStatusCodeSame(200);
+
         $this->assertJsonContains([
-            '@context' => '/contexts/Greeting',
-            '@type' => 'Greeting',
-            'name' => 'Kévin',
+            'id' => '850b71ab-0dc2-4ad8-9993-8a290bae4463',
+            'name' => 'hola',
         ]);
     }
 }
